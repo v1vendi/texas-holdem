@@ -1,0 +1,16 @@
+table {
+    border-collapse: collapse;        
+}
+th, td {
+    padding: 4px;
+}
+.winner {
+    border: 1px solid black;
+}
+.red {
+    color: red;
+}
+
+button {
+    margin: 8px;
+}

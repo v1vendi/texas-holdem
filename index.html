@@ -1,0 +1,56 @@
+<!doctype html>
+<title>Minimal Poker</title>
+<meta charset=utf-8>
+<link rel=stylesheet href=style.css>
+<div>
+    <button id=deal>Deal</button>
+    <button id=render>Render</button>
+</div>
+<button id=fold>Fold</button>
+<button id=check>Check</button>
+<button id=call>Call</button>
+<button id=raise>Raise</button>
+<input type=number placeholder=bet id=bet_input>
+<p>
+    Bank:
+    <input type=number readonly value=0 id=bank>
+</p>
+
+<p id=table></p>
+
+<table>
+    <tr>
+        <th></th>
+        <th></th>
+        <th>Name</th>
+        <th>Bank</th>
+        <th>Bet</th>
+        <th>Turn</th>
+        <th>Cards</th>
+    </tr>
+    <tbody id=players></tbody>
+</table>
+<script src=build/main.js></script>
+<script>
+    var yura = new Player('Yura')
+    var ales = new Player('Ales')
+    var dimas = new Player('Dimas')
+    var maloy = new Player('Maloy')
+
+    var table = new Table([
+        yura,
+        ales,
+        dimas,
+        maloy
+    ])
+
+    table.startGame()
+    render(table.game)
+    
+    document.getElementById('deal').onclick = () => {
+        delete table.game
+        table.startGame()
+        render(table.game)
+    }
+
+</script>
