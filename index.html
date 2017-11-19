@@ -3,8 +3,7 @@
 <meta charset=utf-8>
 <link rel=stylesheet href=style.css>
 <div>
-    <button id=deal>Deal</button>
-    <button id=render>Render</button>
+    <button id=deal>Deal new cards</button>
 </div>
 <button id=fold>Fold</button>
 <button id=check>Check</button>
@@ -30,8 +29,11 @@
     </tr>
     <tbody id=players></tbody>
 </table>
-<script src=build/main.js></script>
-<script>
+<script src=render.js></script>
+<script type=module>
+    import { Player } from './build/player.js'
+    import { Table } from './build/game.js'
+
     var yura = new Player('Yura')
     var ales = new Player('Ales')
     var dimas = new Player('Dimas')

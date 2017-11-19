@@ -2,37 +2,18 @@
   "name": "poker_solver",
   "scripts": {
     "test": "jest",
-    "dev": "webpack-dev-server",
-    "compile": "babel main.js --out-dir build --source-maps --watch"
+    "build": "babel lib --out-dir build --watch",
+    "start": "live-server"
   },
   "author": "v1vendi",
-  "babel": {
-    "presets": [
-      "stage-0",
-      "env",
-      "jest"
-    ],
-    "sourceMaps": true,
-    "retainLines": true,
-    "plugins": [
-      "transform-class-properties"
-    ]
-  },
-  "jest": {
-
-  },
   "devDependencies": {
     "babel": "^6.23.0",
     "babel-cli": "^6.26.0",
     "babel-jest": "^21.2.0",
-    "babel-loader": "^7.1.2",
     "babel-preset-env": "^1.6.1",
     "babel-preset-stage-0": "^6.24.1",
     "jest": "^21.2.1",
     "jest-cli": "^21.2.1",
-    "webpack-dev-server": "^2.9.4"
-  },
-  "dependencies": {
-    "webpack": "^3.8.1"
+    "live-server": "^1.2.0"
   }
 }

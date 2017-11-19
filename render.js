@@ -1,4 +1,4 @@
-export function render(game){
+function render(game){
     const cards = game.cards.map(c=>c.toString()).join('')
     document.getElementById('table').innerHTML = cards
 
@@ -28,7 +28,6 @@ export function render(game){
 }
 
 function refreshButtons(game){
-    document.getElementById('render').onclick = () => {render(game)}
     document.getElementById('fold').onclick = () => {game.currentPlayer.fold(); render(game)}
     document.getElementById('check').onclick = () => {game.currentPlayer.check(); render(game)}
     document.getElementById('call').onclick = () => {game.currentPlayer.call(); render(game)}
