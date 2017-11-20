@@ -15,5 +15,9 @@
     "jest": "^21.2.1",
     "jest-cli": "^21.2.1",
     "live-server": "^1.2.0"
+  },
+  "dependencies": {
+    "express": "^4.16.2",
+    "ws": "^3.3.1"
   }
 }
