@@ -10,9 +10,18 @@ function render(game){
         if(player == game.smallBlind) button = 'sB'
         if(player == game.bigBlind) button = 'bB'
 
+        let isCurrentPlayer
+        if(player && game && player.name == game.currentPlayer.name) {
+            isCurrentPlayer = true
+        }
+
+        let isWinner
+        if(game && game.winner && player && game.winner.name == player.name){
+            isWinner = true
+        }
         return `
-            <tr ${game.winner === player ? 'class=winner' : ''}>
-                <td>${player == game.currentPlayer ? '>' : ''}</td>
+            <tr ${isWinner ? 'class=winner' : ''}>
+                <td>${isCurrentPlayer ? '>' : ''}</td>
                 <td>${button}</td>
                 <td>${player.name}</td>
                 <td>${player.stack}</td>
@@ -23,18 +32,4 @@ function render(game){
         `
     })
     document.getElementById('players').innerHTML = players.join('')
-
-    refreshButtons(game)
-}
-
-function refreshButtons(game){
-    document.getElementById('fold').onclick = () => {game.currentPlayer.fold(); render(game)}
-    document.getElementById('check').onclick = () => {game.currentPlayer.check(); render(game)}
-    document.getElementById('call').onclick = () => {game.currentPlayer.call(); render(game)}
-    document.getElementById('raise').onclick = () => {
-        const value = document.getElementById('bet_input').value
-        game.currentPlayer.raise(+value); 
-        document.getElementById('bet_input').value = ''
-        render(game)
-    }
 }

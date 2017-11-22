@@ -3,6 +3,12 @@
 <meta charset=utf-8>
 <link rel=stylesheet href=style.css>
 <div>
+    <label for=create_player>Add new player</label>
+    <input id=new_player_name type=string>
+    <button id=create_player>Create player</button>
+</div>
+<button id=start_game>Start game</button>
+<div>
     <button id=deal>Deal new cards</button>
 </div>
 <button id=fold>Fold</button>
@@ -31,8 +37,8 @@
 </table>
 <script src=render.js></script>
 <script type=module>
-    import { Player } from './build/player.js'
-    import { Table } from './build/game.js'
+    import { Player } from '../build/player.js'
+    import { Table } from '../build/game.js'
 
     var yura = new Player('Yura')
     var ales = new Player('Ales')
@@ -55,10 +61,25 @@
         render(table.game)
     }
 
+    document.getElementById('create_player').onclick = () => {
+        let input = document.getElementById('new_player_name')
+        send({
+            type: 'join',
+            name: input.value
+        })
+        input.value = ''
+    }
+
+    document.getElementById('start_game').onclick = () => {
+        send({
+            type: 'create_table'
+        })
+    }
+
     let socket = new WebSocket("ws://localhost:8080");
 
     socket.onopen = function(event) {
-        console.log('socket connection established')
+        console.log('socket connection established')        
     }
 
     socket.onclose = function(event) {
@@ -71,11 +92,43 @@
     }
 
     socket.onmessage = function(event) {
-        console.log("Получены данные " + event.data)
+        console.log("Получены данные ", event.data)
+        let message = JSON.parse(event.data)
+        switch(message.type){
+            case 'game_updated':
+                render(message.game)
+        }
     }
 
     socket.onerror = function(error) {
         console.log("Ошибка " + error.message)
     }
 
+    window.send = function(obj){
+        socket.send(JSON.stringify(obj))
+    }
+
+    document.getElementById('fold').onclick = () => {
+        send({
+            type: 'player_move/fold'
+        })
+    }
+    document.getElementById('check').onclick = () => {
+        send({
+            type: 'player_move/check'
+        })
+    }
+    document.getElementById('call').onclick = () => {
+        send({
+            type: 'player_move/call'
+        })
+    }
+    document.getElementById('raise').onclick = () => {
+        const value = document.getElementById('bet_input').value
+        send({
+            type: 'player_move/raise',
+            value
+        })
+        document.getElementById('bet_input').value = ''        
+    }
 </script>
